@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  border: solid green;
+  height: 900px;
+  padding: 10px;
+  width: 640px;
+  font-family: monospace;
+  margin: auto;
 }
 
 .App-logo {
@@ -38,8 +44,4 @@
   }
 }
 
-.App{
-  border: solid green;
-  height: 900px;
-  padding: 10px;
-}
+
