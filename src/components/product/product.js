@@ -1,51 +1,44 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import "./product.css";
 
-// function Product(){
-//     return(
-//     <div className="product">product
-//        <img src="" alt=""/>
-//        <h1>Title</h1>
+class Product extends Component {
+  state = {
+    quantity: this.props.quantity,
+    updateCart: this.props.updateCart,
+  };
 
-//        <div>Quantity:</div>
-  
+  AddToCart = () => {
+    this.state.quantity
+      ? this.setState(({ quantity }) => ({ quantity: quantity - 1 }))
+      : this.setState(({ quantity }) => ({ quantity: "Out of stock" }));
+  };
+  AddtoCount = () => {
+    this.state.quantity && this.state.updateCart();
+  };
 
-//     <button>Add to cart</button>
-    
-    
-//     </div>
-   
-//     );
-// }
-
-
-  class Product extends Component{
-    state={
-      quantity:this.props.quantity
-    };
-    AddToCart = () => {
-      this.setState(({quantity }) => ({ quantity: quantity - 1 }))
-    };
-    render(){
-    return(
+  render() {
+    return (
       <div className="product">
         <h1>product</h1>
-      
-      <img src={this.props.src} alt=""/>
-       <h2>
-         {this.props.title}
-       </h2>
 
-       <div>Quantity:
-         {this.state.quantity}
-       </div>
-  
+        <img src={this.props.src} alt="" />
+        <h2>{this.props.title}</h2>
 
-    <button onClick={this.AddToCart}>Add to cart</button>
-      
+        <div>
+          Quantity:
+          {this.state.quantity}
+        </div>
+
+        <button
+          onClick={() => {
+            this.AddToCart();
+            this.AddtoCount();
+          }}
+        >
+          Add to cart
+        </button>
       </div>
-      );
-    }
-
-  } 
-   export default Product;
+    );
+  }
+}
+export default Product;

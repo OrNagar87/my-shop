@@ -6,6 +6,17 @@
   width: 640px;
   font-family: monospace;
   margin: auto;
+  align-items: center;
+}
+
+h1 {
+  margin: 5px;
+}
+
+.body {
+  border: solid orangered;
+  height: 800px;
+  padding-left: 25px;
 }
 
 .App-logo {
@@ -39,9 +50,8 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
-
-
