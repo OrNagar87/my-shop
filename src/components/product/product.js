@@ -13,7 +13,9 @@ class Product extends Component {
       : this.setState(({ quantity }) => ({ quantity: "Out of stock" }));
   };
   AddtoCount = () => {
-    this.state.quantity && this.state.updateCart();
+    if (this.state.quantity && this.state.quantity !== "Out of stock") {
+      this.state.updateCart();
+    }
   };
 
   render() {
