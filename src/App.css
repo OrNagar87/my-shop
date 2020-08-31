@@ -1,20 +1,58 @@
 .App {
-  text-align: center;
-  border: solid green;
+  text-align: right;
   height: 900px;
   padding: 10px;
-  width: 640px;
-  font-family: monospace;
+  width: 940px;
+  font-family: sans-serif;
+
   margin: auto;
   align-items: center;
+
+
+  background-repeat: no-repeat;
+  background-position: center;
+
 }
+
+
+
+.onCart {
+  height: 100px;
+}
+
+
+@import '~antd/dist/antd.css';
 
 h1 {
   margin: 5px;
+  font: bold;
+  color: aliceblue;
+  background-color: black;
+
+}
+
+h1.header {
+  background-image:
+    url(https://www.tiuli.com/image/ca83f6ec74921a4c129407470d492525.jpg?&width=640&height=550);
+  background-position: center;
+  height: 200px;
+  color: black;
+  text-align: left;
+  padding-top: 50px;
+}
+
+.search_table {
+  width: 80%;
+  text-align: right;
+}
+
+.button_update button {
+  float: left;
+
 }
 
 .body {
-  border: solid orangered;
+
   height: 800px;
   padding-left: 25px;
 }
@@ -32,7 +70,7 @@ h1 {
 
 
 .App-header {
-  background-color: #282c34;
+  background-color: #c8cacc;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

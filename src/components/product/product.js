@@ -1,46 +1,73 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./product.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import createPersistedState from "use-persisted-state";
 
-class Product extends Component {
-  state = {
-    quantity: this.props.quantity,
-    updateCart: this.props.updateCart,
-  };
+const useCounterState = createPersistedState("quantity");
 
-  AddToCart = () => {
-    this.state.quantity
-      ? this.setState(({ quantity }) => ({ quantity: quantity - 1 }))
-      : this.setState(({ quantity }) => ({ quantity: "Out of stock" }));
+const Product = (props) => {
+  let [quantity, setQuantity] = useState(props.quantity);
+  let [p, setp] = useState(false);
+  const AddToCart = () => {
+    setp(true);
+    quantity
+      ? setQuantity(quantity - 1)
+      : setQuantity((quantity = "Out of stock"));
   };
-  AddtoCount = () => {
-    if (this.state.quantity && this.state.quantity !== "Out of stock") {
-      this.state.updateCart();
+  const AddtoCount = () => {
+    if (quantity && quantity !== "Out of stock") {
+      props.updateCart(props.id);
     }
   };
 
-  render() {
-    return (
-      <div className="product">
-        <h1>product</h1>
+  const RemoveFromCount = (id) => {
+    if (quantity === props.quantity - 1) {
+      props.removeCart(id);
+    }
+  };
+  const Decrease = () => {
+    console.log(props.quantity);
+    if (p && props.quantity > 0) {
+      setQuantity(quantity + 1);
 
-        <img src={this.props.src} alt="" />
-        <h2>{this.props.title}</h2>
+      props.removeCount(props.id);
+      quantity -= 1;
+    }
+    if (props.quantity === 1) {
+      props.removeCart(props.id);
+    }
+  };
 
+  return (
+    <div className="product">
+      <Link to={"/discription/" + props.id}>
         <div>
-          Quantity:
-          {this.state.quantity}
+          <img src={props.src} alt="" />
         </div>
-
+      </Link>
+      <h2>{props.title}</h2>
+      <div>price:{props.price} ILS</div>
+      <div>Quantity:{quantity}</div>
+      <div>
         <button
           onClick={() => {
-            this.AddToCart();
-            this.AddtoCount();
+            AddToCart();
+            AddtoCount();
           }}
         >
-          Add to cart
+          +
+        </button>
+        <button
+          onClick={() => {
+            // RemoveFromCount();
+            Decrease();
+          }}
+        >
+          -
         </button>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
 export default Product;
