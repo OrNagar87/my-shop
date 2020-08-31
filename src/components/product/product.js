@@ -8,6 +8,7 @@ const useCounterState = createPersistedState("quantity");
 const Product = (props) => {
   let [quantity, setQuantity] = useState(props.quantity);
   let [p, setp] = useState(false);
+
   const AddToCart = () => {
     setp(true);
     quantity

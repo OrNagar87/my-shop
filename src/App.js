@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Discription from "./components/Discription/discription";
+import Discription from "./components/Discription/Discription";
 import Home from "./components/home";
-import Update from "./components/Updateproduct/update";
+import Update from "./components/Updateproduct/Update";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const App = () => {

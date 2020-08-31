@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import "./discription.css";
 
 const Discription = () => {
   const { idParam } = useParams();
@@ -12,13 +13,16 @@ const Discription = () => {
     });
   }, []);
   return (
-    <div>
-      <h2>{product.title}</h2>
+    <div className="disc_body">
+      {" "}
+      <h2 className="disc_title">{product.title}</h2>
       <div>
         {" "}
-        <img src={product.image} alt="" />
+        <img className="disc_img" src={product.image} alt="" />
       </div>
-      <div>{product.discription}</div>
+      <div className="discription">
+        <div className="disc_text">{product.discription}</div>
+      </div>
     </div>
   );
 };
