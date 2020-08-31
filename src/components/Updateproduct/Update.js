@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./update.css";
+import Adding from "./Adding";
 
 export default function Update() {
   const [data, setData] = useState([]);
@@ -11,51 +12,6 @@ export default function Update() {
       setData(response.data);
     });
   }, []);
-
-  const [title, setTitle] = useState();
-  function Add_title(title) {
-    setTitle(title.target.value);
-  }
-
-  const [image, setimage] = useState();
-  const Add_image = (e) => {
-    setimage(e.target.value);
-  };
-
-  const [price, setPrice] = useState();
-  const Add_price = (e) => {
-    setPrice(e.target.value);
-  };
-
-  const [quantity, setQuantity] = useState();
-  const Add_quantity = (e) => {
-    setQuantity(e.target.value);
-  };
-  const [discription, setDiscription] = useState();
-  const Add_discription = (e) => {
-    setDiscription(e.target.value);
-  };
-
-  const Add_product = () => {
-    console.log("adding");
-    // if (!image) {
-    //   ;
-    //   });
-    axios
-      .post("http://127.0.0.1:8000/products/", {
-        title: title,
-        image: image,
-        price: price,
-        quantity: quantity,
-        discription: discription,
-      })
-      .then((res) => {
-        console.log("POST DATA", res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   // change items in products//
   const [change_title, setChange_title] = useState();
   const Change_title = (e) => {
@@ -77,88 +33,11 @@ export default function Update() {
   const Change_discription = (e) => {
     setCnage_discription(e.target.value);
   };
-  const fileInput = useRef();
-  const uploadImage = () => {
-    if (fileInput) {
-      const uploadedFile = fileInput.current;
-
-      axios.post("http://localhost:8000/upload", uploadedFile.files[0], {
-        params: { filename: uploadedFile.files[0].name },
-        onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          console.log(percentCompleted);
-          setimage(
-            "http://localhost:8000/images/" + uploadedFile.files[0].name
-          );
-        },
-      });
-    }
-  };
 
   return (
     <div>
       {" "}
-      <div className="adding">
-        <h1 className="adding_title">הוספת מוצר</h1>
-        <label className="input lable">
-          title:
-          <input
-            className="input title"
-            type="text"
-            name="title"
-            placeholder="שם המוצר"
-            onChange={Add_title}
-          />
-        </label>
-        <input className="input file" type="file" ref={fileInput} />
-        <button onClick={uploadImage}>Upload Image</button>
-        <label className="input lable">
-          תמונה:
-          <input
-            className="input pic"
-            type="url"
-            name="image"
-            placeholder="כתובת תמונה"
-            size="40"
-            pattern="https://.*"
-            onChange={Add_image}
-          />
-        </label>
-        <label className="input lable">
-          price:
-          <input
-            className="input price"
-            type="number"
-            name="price"
-            placeholder="מחיר המוצר"
-            onChange={Add_price}
-          />
-        </label>
-        <label className="input lable">
-          quantity:
-          <input
-            className="input quantity"
-            type="number"
-            name="quantity"
-            placeholder="כמות במלאי"
-            onChange={Add_quantity}
-          />
-        </label>
-        <label>
-          discription:
-          <textarea
-            className="input text"
-            name="discription"
-            placeholder="תיאור המוצר"
-            onChange={Add_discription}
-            rows="5"
-            cols="33"
-          ></textarea>
-        </label>{" "}
-        <button onClick={Add_product}>הוסף מוצר</button>
-      </div>
+      <Adding />
       {data.map((product, key) => (
         <li key={product.id}>
           <ul>
