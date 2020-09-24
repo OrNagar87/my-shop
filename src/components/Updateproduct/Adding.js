@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Form, Input, Button, Checkbox } from "antd";
+
 import "./update.css";
 // import { Upload } from "antd";
 // import ImgCrop from "antd-img-crop";
 
 export default function Adding() {
   const [data, setData] = useState([]);
-  const [box, setbox] = useState(0);
 
   useEffect(() => {
     axios.get("http://127.0.0.1:8000/products/").then(function (response) {
@@ -91,9 +91,7 @@ export default function Adding() {
 
   const Add_product = () => {
     console.log("adding");
-    // if (!image) {
-    //   ;
-    //   });
+
     axios
       .post("http://127.0.0.1:8000/products/", {
         title: title,
@@ -104,6 +102,7 @@ export default function Adding() {
       })
       .then((res) => {
         console.log("POST DATA", res);
+        alert("המוצר התווסף בהצלחה למדף המוצרים");
       })
       .catch((err) => {
         console.log(err);
@@ -137,89 +136,90 @@ export default function Adding() {
       //   onFinishFailed={onFinishFailed}
     >
       <h1 className="adding_title">הוספת מוצר</h1>
-      <Form.Item
-        label="שם המוצר"
-        name="title"
-        rules={[{ required: true, message: "הכנס שם למוצר" }]}
-      >
-        <input
-          className="input title"
-          type="text"
+      <div className="adding_wruper">
+        <Form.Item
+          label="שם המוצר"
           name="title"
-          placeholder="שם המוצר"
-          onChange={Add_title}
-        />
-      </Form.Item>
-      <Form.Item
-        label="העלאת תמונה מקובץ"
-        name="upload"
-        rules={[{ required: false }]}
-      >
-        <input type="file" ref={fileInput} onChange={uploadImage} />
-        {/* <button onClick={uploadImage}>העלאת תמונה</button> */}
-      </Form.Item>
-      <Form.Item
-        label="הכנסת כתובת תמונה"
-        name="upload"
-        rules={[{ required: false }]}
-      >
-        <input
-          className="input pic"
-          type="url"
-          name="image"
-          placeholder="כתובת תמונה"
-          size="40"
-          pattern="https://.*"
-          onChange={Add_image}
-        />
-      </Form.Item>
-      <Form.Item
-        label="מחיר"
-        name="price"
-        rules={[{ required: true, message: "הכנס מחיר מוצר" }]}
-      >
-        <input
-          className="input price"
-          type="number"
+          rules={[{ required: true, message: "הכנס שם למוצר" }]}
+        >
+          <Input
+            className="input title"
+            type="text"
+            name="title"
+            placeholder="שם המוצר"
+            onChange={Add_title}
+          />
+        </Form.Item>
+        <Form.Item
+          label="העלאת תמונה מקובץ"
+          name="upload"
+          rules={[{ required: false }]}
+        >
+          <Input type="file" ref={fileInput} onChange={uploadImage} />
+        </Form.Item>
+        <Form.Item
+          label="הכנסת כתובת תמונה"
+          name="urlImg"
+          rules={[{ required: false }]}
+        >
+          <Input
+            className="input pic"
+            type="url"
+            name="image"
+            placeholder="כתובת תמונה"
+            size="40"
+            pattern="https://.*"
+            onChange={Add_image}
+          />
+        </Form.Item>
+        <Form.Item
+          label="מחיר"
           name="price"
-          placeholder="מחיר המוצר"
-          onChange={Add_price}
-        />
-      </Form.Item>
-      <Form.Item
-        label="כמות במלאי"
-        name="quantity"
-        rules={[{ required: true, message: "הכנס ערך" }]}
-      >
-        <input
-          className="input quantity"
-          type="number"
+          rules={[{ required: true, message: "הכנס מחיר מוצר" }]}
+        >
+          <Input
+            className="input price"
+            type="number"
+            name="price"
+            placeholder="מחיר המוצר"
+            onChange={Add_price}
+          />
+        </Form.Item>
+        <Form.Item
+          label="כמות במלאי"
           name="quantity"
-          placeholder="כמות במלאי"
-          onChange={Add_quantity}
-          required
-        />
-      </Form.Item>
-      <Form.Item
-        label="תיאור המוצר"
-        name="discription"
-        rules={[{ required: true, message: "הכנס תיאור מוצר" }]}
-      >
-        <textarea
-          className="input text"
+          rules={[{ required: true, message: "הכנס ערך" }]}
+        >
+          <Input
+            className="input quantity"
+            type="number"
+            name="quantity"
+            placeholder="כמות במלאי"
+            onChange={Add_quantity}
+            required
+          />
+        </Form.Item>
+        <Form.Item
+          label="תיאור המוצר"
           name="discription"
-          placeholder="תיאור המוצר"
-          onChange={Add_discription}
-          rows="5"
-          cols="33"
-          required
-        ></textarea>
-      </Form.Item>
-      <Form.Item {...tailLayout}>
-        <Button type="primary" htmlType="submit" onClick={Add_product}>
-          הוסף מוצר
-        </Button>
-      </Form.Item>
+          rules={[{ required: true, message: "הכנס תיאור מוצר" }]}
+        >
+          <textarea
+            className="input text"
+            name="discription"
+            placeholder="תיאור המוצר"
+            onChange={Add_discription}
+            rows="5"
+            cols="33"
+            required
+          ></textarea>
+        </Form.Item>
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit" onClick={Add_product}>
+            הוסף מוצר
+          </Button>
+        </Form.Item>
+      </div>
     </Form>
   );
 }

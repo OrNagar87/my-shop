@@ -17,31 +17,30 @@ const Product = (props) => {
   };
   const AddtoCount = () => {
     if (quantity && quantity !== "Out of stock") {
-      props.updateCart(props.id);
+      props.updateCart(props._id);
     }
   };
 
-  const RemoveFromCount = (id) => {
-    if (quantity === props.quantity - 1) {
-      props.removeCart(id);
-    }
-  };
+  // const RemoveFromCount = (_id) => {
+  //   if (quantity === props.quantity - 1) {
+  //     props.removeCart(_id);
+  //   }
+
   const Decrease = () => {
     console.log(props.quantity);
     if (p && props.quantity > 0) {
       setQuantity(quantity + 1);
 
-      props.removeCount(props.id);
-      quantity -= 1;
+      props.removeCount(props._id);
     }
-    if (props.quantity === 1) {
-      props.removeCart(props.id);
+    if (props.quantity === 0 && !props.quantity < 0) {
+      props.removeCart(props._id);
     }
   };
 
   return (
     <div className="product">
-      <Link to={"/discription/" + props.id}>
+      <Link to={"/discription/" + props._id}>
         <div>
           <img src={props.src} alt="" />
         </div>

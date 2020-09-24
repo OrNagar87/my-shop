@@ -1,8 +1,25 @@
 .adding_body {
 
+    margin: auto;
     border-bottom: 2px solid rgb(39, 95, 39);
+}
+
+.adding_wruper {
+    float: right;
 }
 
 .adding_title {
     text-align: right;
+}
+
+.ant-table-container {
+    margin: 20px;
+
+}
+
+.body {
+    width: 940px;
+    align-items: center;
+    margin: auto;
+
 }
