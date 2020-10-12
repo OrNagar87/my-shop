@@ -26,16 +26,21 @@ const App = (props) => {
   const onClose = () => {
     setVisible(false);
   };
-  let [counter, setCounter] = useCounterState1(0);
-  let [price, setPrice] = useState(0);
 
-  const [productonCart, setproductonCart] = useCounterState([]);
+  // may be an option to persisted state
+  let [counter, setCounter] = useState(0);
+  let [price, setPrice] = useState(0);
+  const [productonCart, setproductonCart] = useState([]);
 
   const [data, setData] = useState([]);
-  const [first_quantity, setFirst_quantity] = useState([]);
+
+  //max and min for slider
   const [max, setmax] = useState();
   const [min, setmin] = useState();
+
   const [quant, setQuant] = useState();
+  const [first_quantity, setFirst_quantity] = useState();
+
   const updateCart = (value) => {
     let index;
 
@@ -46,6 +51,7 @@ const App = (props) => {
       }
     }
     console.log(index);
+
     setPrice((price = price + data[index].price));
     if (!productonCart.includes(data[index])) {
       data[index].quantity = 1;
@@ -105,18 +111,25 @@ const App = (props) => {
     });
   }, []);
 
+  // socket client for updating quantity
+  const [newQuant, setNewQuant] = useState([]);
+  const [divisible, setDivisible] = useState(false);
+
   useEffect(() => {
     const socket = socketIOClient("http://localhost:8000");
     socket.on("newQuantity", (newquant) => {
       setNewQuant(newquant);
-      console.log(newquant);
+      setDivisible(true);
 
-      console.log(newquant.index);
-      // setData(data[newquant.index].quantity === newQuant.new_quant);
-      setTimeout(() => setNewQuant({}), 3000);
+      console.log("soket is on!!!!!!!!", newquant);
+
+      setTimeout(() => {
+        setNewQuant({});
+        setDivisible(false);
+      }, 10000);
     });
   }, []);
-  const [newQuant, setNewQuant] = useState([]);
+
   const [value, setValue] = useState([0, max]);
   let onChange = (value) => {
     setValue(value);
@@ -127,9 +140,10 @@ const App = (props) => {
       <h1>מקצועות הטיפוס בישראל</h1>
       <Header />
       <div className="body">
-        <div style={{ float: "left" }}>
+        <div style={{ float: "left", margin: "10px" }}>
           <UpdateButton />
         </div>
+
         <Search
           className="search_table"
           placeholder="חפש מוצר"
@@ -153,15 +167,22 @@ const App = (props) => {
           tooltipVisible
           className="Theslider"
         />
-        <div>
-          {[newQuant.name]}
-          {"   "}
-          {"  "}
-          {[newQuant.new_quant]}
-        </div>
+        {divisible && (
+          <div>
+            !!!!! עדכון מלאי!!!!!
+            {[newQuant.name]}
+            {"   :"}
+            {"  "}
+            {[newQuant.new_quant]}
+            {"   "}
+            נותרו במלאי
+          </div>
+        )}
+        <div className="counter_back">פריטים בעגלה : {counter}</div>
+        <br />
+        <br />
 
-        <div className="counter_back">{counter}</div>
-        <div>{price}</div>
+        <div className="counter_back">לתשלום: {price} </div>
         <img
           className="cart_pic"
           onClick={showDrawer}
@@ -183,25 +204,27 @@ const App = (props) => {
             removeCart={removeCart}
           />
         </Drawer>
-
-        {data
-          .filter(
-            (product) => product.price >= value[0] && product.price <= value[1]
-          )
-          .map((product, productIndex) => (
-            <Product
-              updateCart={updateCart}
-              removeCount={removeCount}
-              removeCart={removeCart}
-              key={product._id}
-              _id={product._id}
-              title={product.title}
-              src={product.image}
-              price={product.price}
-              quantity={product.quantity}
-              button="list"
-            />
-          ))}
+        <div className="products_list">
+          {data
+            .filter(
+              (product) =>
+                product.price >= value[0] && product.price <= value[1]
+            )
+            .map((product, productIndex) => (
+              <Product
+                updateCart={updateCart}
+                removeCount={removeCount}
+                removeCart={removeCart}
+                key={product._id}
+                _id={product._id}
+                title={product.title}
+                src={product.image}
+                price={product.price}
+                quantity={product.quantity}
+                button="list"
+              />
+            ))}
+        </div>
       </div>
     </div>
   );

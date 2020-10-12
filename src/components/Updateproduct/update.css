@@ -1,7 +1,9 @@
-.adding_body {
 
-    margin: auto;
-    border-bottom: 2px solid rgb(39, 95, 39);
+
+.search_table {
+    width: 80%;
+    text-align: right;
+    margin-left: 10%;
 }
 
 .adding_wruper {

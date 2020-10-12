@@ -45,6 +45,7 @@ h1.header {
 .search_table {
   width: 50%;
   text-align: right;
+  margin-right: 25%;
 }
 
 .button_update button {
@@ -97,14 +98,26 @@ h1.header {
 
 .cart_pic {
   cursor: pointer;
+  position: relative;
+  top: -55px;
+
 }
 
 .counter_back {
-  /* background-color: rgb(89, 243, 89);
-  border-radius: 20px;
-  width: 50px;
-  height: 50px;
+  width: 130px;
+  height: 40px;
+  background-color: hotpink;
+  border: 1px solid rgb(63, 25, 44);
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
   float: right;
-  text-align: center; */
+
 
 }
+
+/* 
+.product_list {
+  position: relative;
+  top: 19px;
+} */

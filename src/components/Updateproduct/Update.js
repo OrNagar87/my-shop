@@ -3,11 +3,13 @@ import axios from "axios";
 import "./update.css";
 import Adding from "./Adding";
 import Header from "../Header/Header";
-import { Table, Space, Drawer, Button } from "antd";
+import { Table, Space, Drawer, Button, Input } from "antd";
 import { Redirect } from "react-router-dom";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import EditProduct from "../EditProduct";
 import Product from "../Product/Product";
+
+const { Search } = Input;
 
 export default function Update() {
   const [data, setData] = useState([]);
@@ -107,7 +109,22 @@ export default function Update() {
           <button>חזור לדף הבית</button>
         </Link>
       </div>{" "}
-      <Adding />
+      <div className="search_table">
+        <Search
+          className="search_table"
+          placeholder="חפש מוצר"
+          enterButton="חיפוש מוצר"
+          size="large"
+          maxLength="10"
+          onSearch={(value) => {
+            axios
+              .get("http://127.0.0.1:8000/products/?search=" + value)
+              .then(function (response) {
+                setDataSource(response.data);
+              });
+          }}
+        />
+      </div>
       <Table
         bordered={true}
         dataSource={dataSource}
@@ -133,6 +150,7 @@ export default function Update() {
           quantity={product.quantity}
         />
       </Drawer>
+      <Adding />
     </div>
   );
 }

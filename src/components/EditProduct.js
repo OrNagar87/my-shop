@@ -3,7 +3,6 @@ import axios from "axios";
 import { Form, Input, Button, Checkbox } from "antd";
 
 export default function Edit(props) {
-  console.log(props);
   //   const [form] = Form.useForm();
 
   //   form.setFieldValues(props);
@@ -82,24 +81,24 @@ export default function Edit(props) {
               discription: change_discription,
             })
             .then((res) => {
+              if (change_quantity) {
+                axios
+                  .put("http://127.0.0.1:8000/quantity/" + props._id, {
+                    quantity: change_quantity,
+                  })
+                  .then((res) => {
+                    console.log("put quant", res);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }
               console.log("POST DATA", res);
               alert("השינויים נשמרו");
             })
             .catch((err) => {
               console.log(err);
             });
-          if (change_quantity) {
-            axios
-              .put("http://127.0.0.1:8000/quantity/" + props._id, {
-                quantity: change_quantity,
-              })
-              .then((res) => {
-                console.log("put quant", res);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
         }}
       >
         שמור את השינויים
